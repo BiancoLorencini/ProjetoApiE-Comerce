@@ -23,7 +23,7 @@ public class Produto {
 	// ---chave primaria---
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_Produto")
+	@Column(name = "id_produto")
 	private Integer idProduto;
 
 	// ---atributos---
