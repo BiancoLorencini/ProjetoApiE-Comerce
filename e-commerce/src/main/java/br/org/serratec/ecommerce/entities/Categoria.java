@@ -1,5 +1,7 @@
 package br.org.serratec.ecommerce.entities;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -8,7 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +29,9 @@ public class Categoria {
 	private String nome;
 	@Column(name = "descricao")
 	private String descricao;
+
+	@OneToMany(mappedBy = "produto")
+	private List<Produto> produtos;
 
 	// ---Get & Set ---
 	public Integer getIdCategoria() {
