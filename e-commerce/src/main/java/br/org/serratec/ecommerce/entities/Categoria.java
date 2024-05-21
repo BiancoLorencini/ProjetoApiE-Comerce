@@ -30,7 +30,7 @@ public class Categoria {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@OneToMany(mappedBy = "produto")
+	@OneToMany(mappedBy = "categoria")
 	private List<Produto> produtos;
 
 	// ---Get & Set ---
