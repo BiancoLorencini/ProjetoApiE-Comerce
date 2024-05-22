@@ -3,14 +3,16 @@ package br.org.serratec.ecommerce.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "endereco")
@@ -20,28 +22,42 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")
 	private Integer idEndereco;
-
+	
+	@NotBlank
 	@Column(name = "cep")
 	private String cep;
 	
+	@NotBlank
 	@Column(name = "rua")
 	private String rua;
 	
+	@NotBlank
 	@Column(name = "bairro")
 	private String bairro;
-	
+
 	@Column(name = "cidade")
 	private String cidade;
 	
+	@NotNull
 	@Column(name = "numero")
 	private Integer numero;
-	
+
 	@Column(name = "complemento")
 	private String complemento;
-	
+
 	@Column(name = "uf")
 	private String uf;
-	
+
+	@OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
+	private Cliente cliente;
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public Integer getIdEndereco() {
 		return idEndereco;
@@ -106,6 +122,5 @@ public class Endereco {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
-	
+
 }

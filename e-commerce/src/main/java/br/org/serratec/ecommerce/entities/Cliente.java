@@ -64,7 +64,7 @@ public class Cliente {
     
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     public Cliente() {}

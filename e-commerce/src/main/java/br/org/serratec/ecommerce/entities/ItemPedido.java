@@ -17,7 +17,7 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "itens_pedidos", uniqueConstraints = { @UniqueConstraint(columnNames = "quantidade"),
+@Table(name = "item_pedido", uniqueConstraints = { @UniqueConstraint(columnNames = "quantidade"),
 		@UniqueConstraint(columnNames = "preco_venda") })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idItemPedido", scope = ItemPedido.class)
 public class ItemPedido {
