@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "categoria")
@@ -25,6 +26,7 @@ public class Categoria {
 	private Integer idCategoria;
 
 	// ---atributos---
+	@NotBlank
 	@Column(name = "nome")
 	private String nome;
 	@Column(name = "descricao")

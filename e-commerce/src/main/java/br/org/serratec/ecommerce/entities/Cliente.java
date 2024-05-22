@@ -22,11 +22,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+
 @Table(name = "cliente", uniqueConstraints =  {
 		@UniqueConstraint(columnNames = "cpf"),
 		@UniqueConstraint(columnNames = "email")
 		
 })
+
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idCliente", scope = Cliente.class)
 public class Cliente {

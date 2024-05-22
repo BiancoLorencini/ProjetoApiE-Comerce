@@ -14,9 +14,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "produto")
+@Table(name = "produto", uniqueConstraints = { @UniqueConstraint(columnNames = "descricao") })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduto", scope = Produto.class)
 public class Produto {
 
@@ -27,6 +29,7 @@ public class Produto {
 	private Integer idProduto;
 
 	// ---atributos---
+	@NotBlank
 	@Column(name = "nome")
 	private String nome;
 	@Column(name = "descricao")
@@ -35,6 +38,7 @@ public class Produto {
 	private Integer qtdEstoque;
 	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro;
+	@NotBlank
 	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
 	@Column(name = "imagem")
