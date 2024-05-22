@@ -36,9 +36,9 @@ public class Pedido {
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
-//	private Cliente cliente;
+	@ManyToOne
+	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+	private Cliente cliente;
 
 	public Integer getIdPedido() {
 		return idPedido;
