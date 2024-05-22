@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.ecommerce.entities.Cliente;
 import br.org.serratec.ecommerce.services.ClienteService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/clientes")
@@ -41,8 +42,14 @@ public class ClienteController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
-		return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
+	public ResponseEntity<Cliente> save(@RequestBody @Valid Cliente cliente) {
+		try {
+            Cliente novoCliente = clienteService.save(cliente);
+            return ResponseEntity.ok(novoCliente);
+        } catch (RuntimeException e) {
+           return  ResponseEntity.badRequest().body(null);
+        }
+//		return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
 	}
 
 	@PutMapping

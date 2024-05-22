@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.org.serratec.ecommerce.entities.Cliente;
 import br.org.serratec.ecommerce.repository.ClienteRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ClienteService {
@@ -23,8 +24,16 @@ public class ClienteService {
 		return clienteRepository.findById(id).get();
 	}
 
+	@Transactional
 	public Cliente save(Cliente cliente) {
-		return clienteRepository.save(cliente);
+	      if (clienteRepository.findByCpf(cliente.getCpf()).isPresent()) {
+	            throw new RuntimeException("Já existe um cliente com este CPF.");
+	        }
+	        if (clienteRepository.findByEmail(cliente.getEmail()).isPresent()) {
+	            throw new RuntimeException("Já existe um cliente com este email.");
+	        }
+	        return clienteRepository.save(cliente);
+		
 	}
 
 	public Cliente update(Cliente cliente) {
