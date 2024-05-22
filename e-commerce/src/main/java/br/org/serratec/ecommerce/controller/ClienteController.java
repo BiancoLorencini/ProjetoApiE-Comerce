@@ -43,13 +43,8 @@ public class ClienteController {
 
 	@PostMapping
 	public ResponseEntity<Cliente> save(@RequestBody @Valid Cliente cliente) {
-		try {
-            Cliente novoCliente = clienteService.save(cliente);
-            return ResponseEntity.ok(novoCliente);
-        } catch (RuntimeException e) {
-           return  ResponseEntity.badRequest().body(null);
-        }
-//		return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
+
+		return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
 	}
 
 	@PutMapping

@@ -40,7 +40,7 @@ public class Cliente {
     @NotBlank
     @Email
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Invalid email address")
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String email;
 
     @NotBlank
@@ -48,7 +48,7 @@ public class Cliente {
     private String nomeCompleto;
 
     @NotBlank
-    @Column(name = "cpf",  unique = true)
+    @Column(name = "cpf")
     private String cpf;
 
     @Column(name = "telefone")
