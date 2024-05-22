@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.ecommerce.entities.Pedido;
 import br.org.serratec.ecommerce.services.PedidoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -40,12 +41,12 @@ public class PedidoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Pedido> save(@RequestBody Pedido pedido) {
+	public ResponseEntity<Pedido> save(@RequestBody @Valid Pedido pedido) {
 		return new ResponseEntity<>(pedidoService.save(pedido), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public ResponseEntity<Pedido> update(@RequestBody Pedido pedido) {
+	public ResponseEntity<Pedido> update(@RequestBody @Valid Pedido pedido) {
 		return new ResponseEntity<>(pedidoService.update(pedido), HttpStatus.OK);
 	}
 

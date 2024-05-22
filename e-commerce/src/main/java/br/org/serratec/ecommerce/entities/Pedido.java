@@ -14,6 +14,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pedido")
@@ -24,9 +27,12 @@ public class Pedido {
 	@Column(name = "id_pedido")
 	private Integer idPedido;
 	
+	@NotNull
+	@FutureOrPresent
 	@Column(name = "data_pedido")
 	private LocalDate dataPedido;
 	
+	@Future
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
 	

@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "produto", uniqueConstraints = { @UniqueConstraint(columnNames = "descricao") })
@@ -38,7 +39,7 @@ public class Produto {
 	private Integer qtdEstoque;
 	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro;
-	@NotBlank
+	@NotNull
 	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
 	@Column(name = "imagem")
