@@ -34,6 +34,11 @@ public class Pedido {
 	@Column(name = "data_pedido")
 	private LocalDate dataPedido;
 	
+	@NotNull
+	@FutureOrPresent
+	@Column(name = "data_envio")
+	private LocalDate dataEnvio;
+	
 	@Future
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
@@ -65,6 +70,14 @@ public class Pedido {
 
 	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
+	}	
+
+	public LocalDate getDataEnvio() {
+		return dataEnvio;
+	}
+
+	public void setDataEnvio(LocalDate dataEnvio) {
+		this.dataEnvio = dataEnvio;
 	}
 
 	public LocalDate getDataEntrega() {
