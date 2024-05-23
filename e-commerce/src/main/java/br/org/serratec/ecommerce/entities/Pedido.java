@@ -28,33 +28,41 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_pedido")
 	private Integer idPedido;
-	
+
 	@NotNull
 	@FutureOrPresent
 	@Column(name = "data_pedido")
 	private LocalDate dataPedido;
-	
+
 	@NotNull
 	@FutureOrPresent
 	@Column(name = "data_envio")
 	private LocalDate dataEnvio;
-	
+
 	@Future
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
-	
+
 	@Column(name = "status")
 	private Boolean status;
-	
+
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
-	
+
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itensPedido;
+
+	public List<ItemPedido> getItensPedido() {
+		return itensPedido;
+	}
+
+	public void setItensPedido(List<ItemPedido> itensPedido) {
+		this.itensPedido = itensPedido;
+	}
 
 	public Integer getIdPedido() {
 		return idPedido;
@@ -70,7 +78,7 @@ public class Pedido {
 
 	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
-	}	
+	}
 
 	public LocalDate getDataEnvio() {
 		return dataEnvio;
@@ -104,15 +112,12 @@ public class Pedido {
 		this.valorTotal = valorTotal;
 	}
 
-//	public Cliente getCliente() {
-//		return cliente;
-//	}
-//
-//	public void setCliente(Cliente cliente) {
-//		this.cliente = cliente;
-//	}
-	
-	
-	
-	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 }

@@ -28,7 +28,6 @@ public class ItemPedido {
 	@Column(name = "quantidade")
 	private Integer quantidade;
 
-	
 	@Column(name = "preco_venda")
 	private BigDecimal precoVenda;
 
@@ -42,12 +41,30 @@ public class ItemPedido {
 	private BigDecimal valorLiquido;
 
 	@ManyToOne
-	@JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
+	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
 	@ManyToOne
-	@JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")
+	@JoinColumn(name = "id_pedido")
 	private Pedido pedido;
+
+	
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -95,6 +112,13 @@ public class ItemPedido {
 
 	public void setValorLiquido(BigDecimal valorLiquido) {
 		this.valorLiquido = valorLiquido;
+	}
+
+	@Override
+	public String toString() {
+		return "ItemPedido [idItemPedido=" + idItemPedido + ", quantidade=" + quantidade + ", precoVenda=" + precoVenda
+				+ ", percentualDesconto=" + percentualDesconto + ", valorBruto=" + valorBruto + ", valorLiquido="
+				+ valorLiquido + ", produto=" + produto + ", pedido=" + pedido + "]";
 	}
 
 }

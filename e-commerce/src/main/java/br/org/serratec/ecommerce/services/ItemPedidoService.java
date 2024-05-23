@@ -51,9 +51,9 @@ public class ItemPedidoService {
 		}
 	}
 
-	public long count() {
-		return itemPedidoRepository.count();
-	}
+//	public long count() {
+//		return itemPedidoRepository.count();
+//	}
 
 	private void calcularValores(ItemPedido itemPedido) {
 		BigDecimal valorBruto = itemPedido.getPrecoVenda().multiply(new BigDecimal(itemPedido.getQuantidade()));
