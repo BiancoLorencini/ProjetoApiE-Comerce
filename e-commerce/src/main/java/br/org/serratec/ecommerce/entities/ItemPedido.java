@@ -13,12 +13,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "item_pedido", uniqueConstraints = { @UniqueConstraint(columnNames = "quantidade"),
-		@UniqueConstraint(columnNames = "preco_venda") })
+@Table(name = "item_pedido")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idItemPedido", scope = ItemPedido.class)
 public class ItemPedido {
 	@Id
@@ -30,7 +29,7 @@ public class ItemPedido {
 	@Column(name = "quantidade")
 	private Integer quantidade;
 
-	@NotNull
+	
 	@Column(name = "preco_venda")
 	private BigDecimal precoVenda;
 
@@ -98,4 +97,5 @@ public class ItemPedido {
 	public void setValorLiquido(BigDecimal valorLiquido) {
 		this.valorLiquido = valorLiquido;
 	}
+
 }
