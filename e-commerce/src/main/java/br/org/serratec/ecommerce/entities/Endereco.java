@@ -1,5 +1,6 @@
 package br.org.serratec.ecommerce.entities;
 
+import br.org.serratec.ecommerce.dtos.EnderecoDTO;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -27,21 +28,21 @@ public class Endereco {
 	@Column(name = "cep")
 	private String cep;
 	
-	@NotBlank
+
 	@Column(name = "rua")
 	private String rua;
 	
-	@NotBlank
+
 	@Column(name = "bairro")
 	private String bairro;
 
 	@Column(name = "cidade")
 	private String cidade;
 	
-	@NotNull
+//	@NotNull
 	@Column(name = "numero")
-	private Integer numero;
-
+	private String numero;
+//  @NotBlank
 	@Column(name = "complemento")
 	private String complemento;
 
@@ -99,11 +100,11 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 

@@ -2,6 +2,8 @@ package br.org.serratec.ecommerce.services;
 
 import java.util.List;
 
+import br.org.serratec.ecommerce.components.CepApiClient;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import br.org.serratec.ecommerce.repository.EnderecoRepository;
 public class EnderecoService {
 	@Autowired
 	EnderecoRepository enderecoRepository;
+	@Autowired
+	CepApiClient cepApiClient;
 	
 	public List<Endereco> findAll() {
 		return enderecoRepository.findAll();
@@ -46,6 +50,8 @@ public class EnderecoService {
 	public long count() {
 		return enderecoRepository.count();
 	}
+
+
 }
 
 
