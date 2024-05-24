@@ -1,5 +1,6 @@
 package br.org.serratec.ecommerce.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class CategoriaService {
 	public Categoria findById(Integer id) {
 		return categoriaRepository.findById(id).get();
 	}
+
 
 	public Categoria save(Categoria categoria) {
 		return categoriaRepository.save(categoria);
