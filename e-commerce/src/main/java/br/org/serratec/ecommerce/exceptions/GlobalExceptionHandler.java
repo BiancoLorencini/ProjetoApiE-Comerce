@@ -1,10 +1,12 @@
 package br.org.serratec.ecommerce.exceptions;
 
 import java.net.URI;
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -19,6 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import jakarta.annotation.Nullable;
+import jakarta.persistence.EntityNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -42,6 +45,36 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		problemDetail.setTitle("Recurso Não Encontrado");
 		problemDetail.setType(URI.create("https://api.biblioteca.com/errors/not-found"));
 		return problemDetail;
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ErrorDetails> handleDataIntegrityViolationException(DataIntegrityViolationException ex,
+			WebRequest request) {
+		String errorMessage = "Violação de Integridade de Dados: " + ex.getRootCause().getMessage();
+		ErrorDetails errorDetails = new ErrorDetails(HttpStatus.CONFLICT, errorMessage, request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<ErrorDetails> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
+		String errorMessage = "Acesso Negado!: " + ex.getMessage();
+		ErrorDetails errorDetails = new ErrorDetails(HttpStatus.FORBIDDEN, errorMessage, request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
+	}
+
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<ErrorDetails> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
+		String errorMessage = "Entidade(Tabela) Não Encontrada...: " + ex.getMessage();
+		ErrorDetails errorDetails = new ErrorDetails(HttpStatus.NOT_FOUND, errorMessage, request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorDetails> handleGlobalException(Exception ex, WebRequest request) {
+		String errorMessage = "Um erro inesperado aconteceu!: " + ex.getMessage();
+		ErrorDetails errorDetails = new ErrorDetails(HttpStatus.INTERNAL_SERVER_ERROR, errorMessage,
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@Override
@@ -70,4 +103,42 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return response;
 	}
 
+	public static class ErrorDetails {
+		private HttpStatus status;
+		private String message;
+		private String details;
+
+		public ErrorDetails(HttpStatus status, String message, String details) {
+			super();
+			this.status = status;
+			this.message = message;
+			this.details = details;
+		}
+
+		// Getters e Setters
+		public HttpStatus getStatus() {
+			return status;
+		}
+
+		public void setStatus(HttpStatus status) {
+			this.status = status;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+		
+		public void setMessage(String message) {
+			this.message = message;
+		}
+
+		public String getDetails() {
+			return details;
+		}
+
+		public void setDetails(String details) {
+			this.details = details;
+		}
+	}
+	
 }
