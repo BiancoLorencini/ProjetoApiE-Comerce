@@ -80,16 +80,16 @@ public class Endereco {
 		return rua;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setRua(String logradouro) {
+		this.rua = logradouro;
 	}
 
 	public String getBairro() {
 		return bairro;
 	}
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
+	public void setBairro(String localidade) {
+		this.bairro = localidade;
 	}
 
 	public String getCidade() {
@@ -122,6 +122,16 @@ public class Endereco {
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+
+	public String getLogradouro() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getLocalidade() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

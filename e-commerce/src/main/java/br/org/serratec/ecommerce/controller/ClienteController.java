@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.serratec.ecommerce.dtos.ClienteDTO;
 import br.org.serratec.ecommerce.entities.Cliente;
 import br.org.serratec.ecommerce.services.ClienteService;
 import jakarta.validation.Valid;
@@ -28,6 +29,10 @@ public class ClienteController {
 	@GetMapping
 	public ResponseEntity<List<Cliente>> findAll() {
 		return new ResponseEntity<>(clienteService.findAll(), HttpStatus.OK);
+	}
+	@GetMapping("/resumido")
+	public ResponseEntity<List<ClienteDTO>> findClienteDto() {
+		return new ResponseEntity<>(clienteService.findClienteDto(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

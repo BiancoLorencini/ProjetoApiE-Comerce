@@ -1,5 +1,6 @@
 package br.org.serratec.ecommerce.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.ecommerce.components.CepApiClient;
-import br.org.serratec.ecommerce.dtos.EnderecoDTO;
+import br.org.serratec.ecommerce.dtos.ClienteDTO;
 import br.org.serratec.ecommerce.entities.Cliente;
 import br.org.serratec.ecommerce.entities.Endereco;
 import br.org.serratec.ecommerce.repository.ClienteRepository;
@@ -23,6 +24,22 @@ public class ClienteService {
 	public List<Cliente> findAll() {
 		return clienteRepository.findAll();
 	}
+	
+	public List<ClienteDTO> findClienteDto(){
+		List<Cliente> clientes = clienteRepository.findAll();
+		List<ClienteDTO> clientesDto = new ArrayList<>();
+		
+		for(Cliente cliente : clientes) {
+			ClienteDTO clienteDto = new ClienteDTO();
+			clienteDto.setNomeCompleto(cliente.getNomeCompleto());
+			clienteDto.setEmail(cliente.getEmail());
+			clienteDto.setTelefone(cliente.getTelefone());
+//			clienteDto.setPedidos(cliente.getPedido());
+			
+			clientesDto.add(clienteDto);
+		}
+		return clientesDto;
+	}
 
 	public Cliente findById(Integer id) {
 		return clienteRepository.findById(id).get();
@@ -33,22 +50,13 @@ public class ClienteService {
 //	        return clienteRepository.save(cliente);
 		
 		String cep = cliente.getEndereco().getCep();
-		EnderecoDTO enderecoDto = cepApiClient.getEnderecoPorCep(cep);
+		Endereco endereco = cepApiClient.getEnderecoPorCep(cep);
 
-		if (enderecoDto == null || enderecoDto.getCep() == null) {
+		if (endereco == null || endereco.getCep() == null) {
 			throw new RuntimeException("CEP não encontrado");
 		}
 
-		Endereco endereco = new Endereco();
-		endereco.setCep(enderecoDto.getCep());
-		endereco.setRua(enderecoDto.getLogradouro());
-		endereco.setBairro(enderecoDto.getBairro());
-		endereco.setCidade(enderecoDto.getLocalidade());
-		endereco.setUf(enderecoDto.getUf());
-		endereco.setNumero(enderecoDto.getNumero());
-
 		cliente.setEndereco(endereco);
-
 
 		return clienteRepository.save(cliente);
 	}
