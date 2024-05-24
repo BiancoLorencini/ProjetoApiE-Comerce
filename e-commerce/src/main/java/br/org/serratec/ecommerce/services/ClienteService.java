@@ -13,7 +13,7 @@ import br.org.serratec.ecommerce.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
-	
+
 	@Autowired
 	ClienteRepository clienteRepository;
 
@@ -21,18 +21,18 @@ public class ClienteService {
 	public List<Cliente> findAll() {
 		return clienteRepository.findAll();
 	}
-	
-	public List<ClienteDTO> findClienteDto(){
+
+	public List<ClienteDTO> findClienteDto() {
 		List<Cliente> clientes = clienteRepository.findAll();
 		List<ClienteDTO> clientesDto = new ArrayList<>();
-		
-		for(Cliente cliente : clientes) {
+
+		for (Cliente cliente : clientes) {
 			ClienteDTO clienteDto = new ClienteDTO();
 			clienteDto.setNomeCompleto(cliente.getNomeCompleto());
 			clienteDto.setEmail(cliente.getEmail());
 			clienteDto.setTelefone(cliente.getTelefone());
-//			clienteDto.setPedidos(cliente.getPedido());
-			
+			clienteDto.setPedidos(cliente.getPedido());
+
 			clientesDto.add(clienteDto);
 		}
 		return clientesDto;
@@ -42,9 +42,9 @@ public class ClienteService {
 		return clienteRepository.findById(id).get();
 	}
 
-
 	public Cliente save(Cliente cliente) {
 	        return clienteRepository.save(cliente);
+
 	}
 
 	public Cliente update(Cliente cliente) {
