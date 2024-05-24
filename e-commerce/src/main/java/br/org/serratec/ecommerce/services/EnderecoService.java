@@ -2,11 +2,10 @@ package br.org.serratec.ecommerce.services;
 
 import java.util.List;
 
-import br.org.serratec.ecommerce.components.CepApiClient;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.org.serratec.ecommerce.components.ViaCepComponent;
 import br.org.serratec.ecommerce.entities.Endereco;
 import br.org.serratec.ecommerce.repository.EnderecoRepository;
 
@@ -14,8 +13,10 @@ import br.org.serratec.ecommerce.repository.EnderecoRepository;
 public class EnderecoService {
 	@Autowired
 	EnderecoRepository enderecoRepository;
-	@Autowired
-	CepApiClient cepApiClient;
+	
+    @Autowired
+    private ViaCepComponent viaCepService;
+
 	
 	public List<Endereco> findAll() {
 		return enderecoRepository.findAll();
@@ -25,8 +26,16 @@ public class EnderecoService {
 		return enderecoRepository.findById(id).orElse(null);
 	}
 	
-	public Endereco save(Endereco endereco) {
-		return enderecoRepository.save(endereco);
+	public Endereco save(String cep, Endereco endereco) {
+        Endereco enderecoViaCep = viaCepService.getCepInfo(cep);
+        if (enderecoViaCep != null) {
+            enderecoViaCep.setNumero(endereco.getNumero());
+            enderecoViaCep.setComplemento(endereco.getComplemento());
+            return enderecoRepository.save(enderecoViaCep);
+        } else {
+            throw new IllegalArgumentException("CEP não encontrado");
+        }
+		
 	}
 
 	public Endereco update(Endereco endereco) {

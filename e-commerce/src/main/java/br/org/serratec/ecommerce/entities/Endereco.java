@@ -1,10 +1,11 @@
 package br.org.serratec.ecommerce.entities;
 
-import br.org.serratec.ecommerce.dtos.EnderecoDTO;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "endereco")
@@ -30,18 +30,21 @@ public class Endereco {
 	
 
 	@Column(name = "rua")
+	@JsonAlias("logradouro")
 	private String rua;
 	
 
 	@Column(name = "bairro")
+	@JsonAlias("bairro")
 	private String bairro;
 
 	@Column(name = "cidade")
+	@JsonAlias("localidade")
 	private String cidade;
 	
 //	@NotNull
 	@Column(name = "numero")
-	private String numero;
+	private Integer numero;
 //  @NotBlank
 	@Column(name = "complemento")
 	private String complemento;
@@ -49,7 +52,8 @@ public class Endereco {
 	@Column(name = "uf")
 	private String uf;
 
-	@OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "endereco")
+	@JsonBackReference
 	private Cliente cliente;
 
 	public Cliente getCliente() {
@@ -100,11 +104,11 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public String getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
@@ -124,14 +128,5 @@ public class Endereco {
 		this.uf = uf;
 	}
 
-	public String getLogradouro() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getLocalidade() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

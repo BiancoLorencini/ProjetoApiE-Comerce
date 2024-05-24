@@ -1,6 +1,7 @@
 package br.org.serratec.ecommerce.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,8 +42,22 @@ public class EnderecoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Endereco> save(@RequestBody Endereco endereco) {
-		return new ResponseEntity<>(enderecoService.save(endereco), HttpStatus.CREATED);
+	public ResponseEntity<Endereco> save(@RequestBody Map<String, String> request) {
+	      String cep = request.get("cep");
+	        if (cep == null || !cep.matches("\\d{8}")) {
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        }
+
+	        Endereco endereco = new Endereco();
+	        endereco.setComplemento(request.get("complemento"));
+	        
+	        try {
+	            endereco.setNumero(Integer.parseInt(request.get("numero")));
+	        } catch (NumberFormatException e) {
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        }
+
+	        return new ResponseEntity<>(enderecoService.save(cep, endereco), HttpStatus.CREATED);
 	}
 	
 	@PutMapping

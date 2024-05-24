@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -59,9 +59,10 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedido;
 
-	@NotNull
-	@OneToOne(cascade = CascadeType.ALL)
+	
+	@OneToOne
 	@JoinColumn(name = "id_endereco")
+	@JsonManagedReference
 	private Endereco endereco;
 
 	public Cliente() {
@@ -71,6 +72,7 @@ public class Cliente {
 			@NotBlank @Email @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Invalid email address") String email,
 			@NotBlank String nomeCompleto, @NotBlank String cpf, String telefone, Date dataNascimento,
 			List<Pedido> pedido, @NotNull Endereco endereco) {
+		super();
 		this.idCliente = idCliente;
 		this.email = email;
 		this.nomeCompleto = nomeCompleto;
@@ -144,5 +146,7 @@ public class Cliente {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+
+	
 
 }
