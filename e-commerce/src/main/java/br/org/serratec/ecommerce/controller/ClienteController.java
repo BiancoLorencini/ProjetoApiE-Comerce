@@ -48,6 +48,7 @@ public class ClienteController {
 
 	@PostMapping
 	public ResponseEntity<Cliente> save(@RequestBody @Valid Cliente cliente) {
+		
 		Cliente clienteCadastrado = clienteService.save(cliente);
 		return ResponseEntity.ok(clienteCadastrado);
 //		return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);

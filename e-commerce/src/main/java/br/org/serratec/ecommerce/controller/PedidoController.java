@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.serratec.ecommerce.dtos.PedidoDTO;
 import br.org.serratec.ecommerce.entities.Pedido;
 import br.org.serratec.ecommerce.services.PedidoService;
 import jakarta.validation.Valid;
@@ -27,6 +28,10 @@ public class PedidoController {
 	@GetMapping
 	public ResponseEntity<List<Pedido>> findAll() {
 		return new ResponseEntity<>(pedidoService.findAll(), HttpStatus.OK);
+	}
+	@GetMapping("/resumido")
+	public ResponseEntity<List<PedidoDTO>> findAllDto() {
+		return new ResponseEntity<>(pedidoService.findAllDto(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
