@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.ecommerce.entities.ItemPedido;
+import br.org.serratec.ecommerce.entities.Pedido;
 import br.org.serratec.ecommerce.repository.ItemPedidoRepository;
 
 @Service
@@ -17,6 +18,12 @@ public class ItemPedidoService {
 
 	@Autowired
 	ItemPedido itemPedido;
+	
+	@Autowired
+	RelatorioDtoService relatorioDtoService;
+	
+	@Autowired
+	Pedido pedido;
 
 	public List<ItemPedido> findAll() {
 		return itemPedidoRepository.findAll();
@@ -28,6 +35,9 @@ public class ItemPedidoService {
 
 	public ItemPedido save(ItemPedido itemPedido) {
 		calcularValores(itemPedido);
+		calcularValorTotal(pedido);
+		relatorioDtoService.gerarRelatorio();
+		System.out.println(relatorioDtoService.gerarRelatorio());
 		return itemPedidoRepository.save(itemPedido);
 
 	}
@@ -62,5 +72,17 @@ public class ItemPedidoService {
 
 		itemPedido.setValorBruto(valorBruto);
 		itemPedido.setValorLiquido(valorLiquido);
+	}
+	
+	public void calcularValorTotal(Pedido pedido) {
+		List<ItemPedido> itensPedidos = itemPedidoRepository.findAll();
+
+		BigDecimal valorTotal = BigDecimal.ZERO;
+		for (ItemPedido item : itensPedidos) {
+			valorTotal = valorTotal.add(item.getValorLiquido());
+		}
+		
+		pedido.setValorTotal(valorTotal);
+
 	}
 }

@@ -48,7 +48,6 @@ public class PedidoService {
 	}
 
 	public Pedido save(Pedido pedido) {
-		calcularValorTotal(pedido);
 		return pedidoRepository.save(pedido);
 	}
 
