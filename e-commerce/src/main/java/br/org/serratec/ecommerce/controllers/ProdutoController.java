@@ -88,8 +88,13 @@ public class ProdutoController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteProfile(@PathVariable Integer id) {
-		produtoService.deleteProdutoById(id);
+	public ResponseEntity<Void> deleteProdutoById(@PathVariable Integer id) {
+		boolean produtoDeletado = produtoService.deleteProdutoById(id);
+		if (produtoDeletado) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 }

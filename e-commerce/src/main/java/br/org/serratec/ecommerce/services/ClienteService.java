@@ -3,8 +3,8 @@ package br.org.serratec.ecommerce.services;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.ecommerce.dtos.ClienteDTO;
@@ -51,12 +51,18 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
-	public void deleteClienteById(Integer id) {
+
+	public boolean deleteClienteById(Integer id) {
 		if (clienteRepository.existsById(id)) {
 			clienteRepository.deleteById(id);
-			ResponseEntity.noContent().build();
+			Cliente clienteDeletado = clienteRepository.findById(id).orElse(null);
+			if (clienteDeletado == null) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			ResponseEntity.notFound().build();
+			return false;
 		}
 	}
 }

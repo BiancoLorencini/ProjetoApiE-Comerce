@@ -52,7 +52,12 @@ public class CategoriaController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteProfile(@PathVariable Integer id) {
-		categoriaService.deleteCategoriaById(id);
+	public ResponseEntity<Void> deleteCategoriaById(@PathVariable Integer id) {
+		boolean categoriaDeletado = categoriaService.deleteCategoriaById(id);
+		if (categoriaDeletado) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 }

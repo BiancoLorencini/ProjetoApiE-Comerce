@@ -3,6 +3,7 @@ package br.org.serratec.ecommerce.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.org.serratec.ecommerce.entities.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -33,12 +34,17 @@ public class CategoriaService {
 		return categoriaRepository.save(categoria);
 	}
 
-	public void deleteCategoriaById(Integer id) {
+	public boolean deleteCategoriaById(Integer id) {
 		if (categoriaRepository.existsById(id)) {
 			categoriaRepository.deleteById(id);
-			ResponseEntity.noContent().build();
+			Categoria categoriaDeletado = categoriaRepository.findById(id).orElse(null);
+			if (categoriaDeletado == null) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			ResponseEntity.notFound().build();
+			return false;
 		}
 	}
 }

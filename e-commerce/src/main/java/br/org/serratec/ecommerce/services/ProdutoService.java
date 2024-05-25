@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.org.serratec.ecommerce.entities.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -52,12 +53,17 @@ public class ProdutoService {
 		return produtoRepository.save(produto);
 	}
 
-	public void deleteProdutoById(Integer id) {
+	public boolean deleteProdutoById(Integer id) {
 		if (produtoRepository.existsById(id)) {
 			produtoRepository.deleteById(id);
-			ResponseEntity.noContent().build();
+			Produto produtoDeletado = produtoRepository.findById(id).orElse(null);
+			if (produtoDeletado == null) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			ResponseEntity.notFound().build();
+			return false;
 		}
 	}
 

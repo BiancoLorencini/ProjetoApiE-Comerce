@@ -60,7 +60,12 @@ public class ClienteController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteProfile(@PathVariable Integer id) {
-		clienteService.deleteClienteById(id);
+	public ResponseEntity<Void> deleteClienteById(@PathVariable Integer id) {
+		boolean clienteDeletado = clienteService.deleteClienteById(id);
+		if (clienteDeletado) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 }
