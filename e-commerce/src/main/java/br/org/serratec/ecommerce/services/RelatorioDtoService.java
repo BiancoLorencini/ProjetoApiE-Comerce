@@ -10,9 +10,9 @@ import br.org.serratec.ecommerce.dtos.RelatorioDTO;
 import br.org.serratec.ecommerce.entities.ItemPedido;
 import br.org.serratec.ecommerce.entities.Pedido;
 import br.org.serratec.ecommerce.entities.Produto;
-import br.org.serratec.ecommerce.repository.ItemPedidoRepository;
-import br.org.serratec.ecommerce.repository.PedidoRepository;
-import br.org.serratec.ecommerce.repository.ProdutoRepository;
+import br.org.serratec.ecommerce.repositories.ItemPedidoRepository;
+import br.org.serratec.ecommerce.repositories.PedidoRepository;
+import br.org.serratec.ecommerce.repositories.ProdutoRepository;
 
 @Service
 public class RelatorioDtoService {

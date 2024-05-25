@@ -1,4 +1,4 @@
-package br.org.serratec.ecommerce.controller;
+package br.org.serratec.ecommerce.controllers;
 
 import java.math.BigDecimal;
 import java.util.List;

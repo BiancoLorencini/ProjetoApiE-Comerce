@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.ecommerce.entities.Categoria;
-import br.org.serratec.ecommerce.repository.CategoriaRepository;
+import br.org.serratec.ecommerce.repositories.CategoriaRepository;
 
 @Service
 public class CategoriaService {

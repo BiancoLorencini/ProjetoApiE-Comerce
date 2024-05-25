@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.ecommerce.dtos.PedidoDTO;
 import br.org.serratec.ecommerce.entities.ItemPedido;
 import br.org.serratec.ecommerce.entities.Pedido;
-import br.org.serratec.ecommerce.repository.ItemPedidoRepository;
-import br.org.serratec.ecommerce.repository.PedidoRepository;
+import br.org.serratec.ecommerce.repositories.ItemPedidoRepository;
+import br.org.serratec.ecommerce.repositories.PedidoRepository;
 
 @Service
 public class PedidoService {

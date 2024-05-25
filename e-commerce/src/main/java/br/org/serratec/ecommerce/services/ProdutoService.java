@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.org.serratec.ecommerce.dtos.ProdutoDTO;
 import br.org.serratec.ecommerce.entities.Produto;
-import br.org.serratec.ecommerce.repository.ProdutoRepository;
+import br.org.serratec.ecommerce.repositories.ProdutoRepository;
 
 @Service
 public class ProdutoService {

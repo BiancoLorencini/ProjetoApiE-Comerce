@@ -1,14 +1,15 @@
 package br.org.serratec.ecommerce.services;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.org.serratec.ecommerce.dtos.ItemPedidoDTO;
 import br.org.serratec.ecommerce.entities.ItemPedido;
-import br.org.serratec.ecommerce.entities.Pedido;
-import br.org.serratec.ecommerce.repository.ItemPedidoRepository;
+import br.org.serratec.ecommerce.repositories.ItemPedidoRepository;
 
 @Service
 public class ItemPedidoService {
@@ -18,12 +19,6 @@ public class ItemPedidoService {
 
 	@Autowired
 	ItemPedido itemPedido;
-	
-	@Autowired
-	RelatorioDtoService relatorioDtoService;
-	
-	@Autowired
-	Pedido pedido;
 
 	public List<ItemPedido> findAll() {
 		return itemPedidoRepository.findAll();
@@ -32,12 +27,28 @@ public class ItemPedidoService {
 	public ItemPedido findById(Integer id) {
 		return itemPedidoRepository.findById(id).get();
 	}
+	
+	public List<ItemPedidoDTO> findAllResumido() {
+		List<ItemPedido> itensPedido = itemPedidoRepository.findAll();
+		List<ItemPedidoDTO> itensPedidoDTO = new ArrayList<>();
+
+		for (ItemPedido itemPedido : itensPedido) {
+			
+			ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
+			
+			itemPedidoDTO.setPedido(itemPedido.getPedido());
+			itemPedidoDTO.setProduto(itemPedido.getProduto());
+			itemPedidoDTO.setQuantidade(itemPedido.getQuantidade());
+			itemPedidoDTO.setValorLiquido(itemPedido.getValorLiquido());
+
+			itensPedidoDTO.add(itemPedidoDTO);
+		}
+
+		return itensPedidoDTO;
+	}
 
 	public ItemPedido save(ItemPedido itemPedido) {
 		calcularValores(itemPedido);
-		calcularValorTotal(pedido);
-		relatorioDtoService.gerarRelatorio();
-		System.out.println(relatorioDtoService.gerarRelatorio());
 		return itemPedidoRepository.save(itemPedido);
 
 	}
@@ -72,17 +83,5 @@ public class ItemPedidoService {
 
 		itemPedido.setValorBruto(valorBruto);
 		itemPedido.setValorLiquido(valorLiquido);
-	}
-	
-	public void calcularValorTotal(Pedido pedido) {
-		List<ItemPedido> itensPedidos = itemPedidoRepository.findAll();
-
-		BigDecimal valorTotal = BigDecimal.ZERO;
-		for (ItemPedido item : itensPedidos) {
-			valorTotal = valorTotal.add(item.getValorLiquido());
-		}
-		
-		pedido.setValorTotal(valorTotal);
-
 	}
 }

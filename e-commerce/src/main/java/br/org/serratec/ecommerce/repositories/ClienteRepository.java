@@ -1,4 +1,4 @@
-package br.org.serratec.ecommerce.repository;
+package br.org.serratec.ecommerce.repositories;
 
 import java.util.Optional;
 

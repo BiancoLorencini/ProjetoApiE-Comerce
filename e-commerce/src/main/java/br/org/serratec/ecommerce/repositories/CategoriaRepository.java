@@ -1,4 +1,4 @@
-package br.org.serratec.ecommerce.repository;
+package br.org.serratec.ecommerce.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

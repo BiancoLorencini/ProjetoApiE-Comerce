@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.org.serratec.ecommerce.dtos.ClienteDTO;
 import br.org.serratec.ecommerce.entities.Cliente;
-import br.org.serratec.ecommerce.repository.ClienteRepository;
+import br.org.serratec.ecommerce.repositories.ClienteRepository;
 
 @Service
 public class ClienteService {

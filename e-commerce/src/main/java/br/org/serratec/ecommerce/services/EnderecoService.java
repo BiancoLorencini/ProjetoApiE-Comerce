@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.org.serratec.ecommerce.components.ViaCepComponent;
 import br.org.serratec.ecommerce.entities.Endereco;
-import br.org.serratec.ecommerce.repository.EnderecoRepository;
+import br.org.serratec.ecommerce.repositories.EnderecoRepository;
 
 @Service
 public class EnderecoService {

@@ -1,4 +1,4 @@
-package br.org.serratec.ecommerce.controller;
+package br.org.serratec.ecommerce.controllers;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.serratec.ecommerce.dtos.ItemPedidoDTO;
 import br.org.serratec.ecommerce.entities.ItemPedido;
 import br.org.serratec.ecommerce.services.ItemPedidoService;
 
@@ -38,7 +39,12 @@ public class ItemPedidoController {
 		else
 			return new ResponseEntity<>(itemPedido, HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/resumido")
+	public ResponseEntity<List<ItemPedidoDTO>> findAllResumido() {
+		return new ResponseEntity<>(itemPedidoService.findAllResumido(), HttpStatus.OK);
+	}
+	
 	@PostMapping
 	public ResponseEntity<ItemPedido> save(@RequestBody ItemPedido itemPedido) {
 		return new ResponseEntity<>(itemPedidoService.save(itemPedido), HttpStatus.CREATED);
