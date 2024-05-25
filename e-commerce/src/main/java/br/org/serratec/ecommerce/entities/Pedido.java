@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import br.org.serratec.ecommerce.enums.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,7 +45,7 @@ public class Pedido {
 	private LocalDate dataEntrega;
 
 	@Column(name = "status")
-	private Boolean status;
+	private Status status;
 
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
@@ -96,11 +97,11 @@ public class Pedido {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Boolean getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
