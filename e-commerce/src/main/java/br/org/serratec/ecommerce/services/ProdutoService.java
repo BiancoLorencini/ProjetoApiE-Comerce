@@ -2,12 +2,11 @@ package br.org.serratec.ecommerce.services;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.org.serratec.ecommerce.entities.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,16 +66,16 @@ public class ProdutoService {
 		}
 	}
 
-	public void cadastrarProduto(String nome,BigDecimal valorUnitario, MultipartFile imagem) throws IOException {
-		ProdutoDTO produtoDTO = new ProdutoDTO();
-		produtoDTO.setNome(nome);
-		produtoDTO.setValorUnitario(valorUnitario);
-		produtoDTO.setImagem(imagem.getBytes());
-
+	public void cadastrarProduto(String nome, String descricao, Integer qtdEstoque, LocalDate dataCadastro, BigDecimal valorUnitario,
+			MultipartFile imagem) throws IOException {
 		Produto produto = new Produto();
+		produto.setNome(nome);
+		produto.setDescricao(descricao);
+		produto.setQtdEstoque(qtdEstoque);
+		produto.setDataCadastro(dataCadastro);
+		produto.setValorUnitario(valorUnitario);
+	
 
-		produto.setNome(produtoDTO.getNome());
-		produto.setValorUnitario(produtoDTO.getValorUnitario());
 
 		if (imagem != null && !imagem.isEmpty()) {
 			produto.setImagem(imagem.getBytes());

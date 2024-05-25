@@ -1,6 +1,7 @@
 package br.org.serratec.ecommerce.controllers;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import br.org.serratec.ecommerce.dtos.ProdutoDTO;
 import br.org.serratec.ecommerce.entities.Produto;
 import br.org.serratec.ecommerce.services.ProdutoService;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/produtos")
@@ -51,16 +51,21 @@ public class ProdutoController {
 		}
 	}
 
-	@PostMapping
-	public ResponseEntity<Produto> save(@RequestBody @Valid Produto produto) {
-		return new ResponseEntity<>(produtoService.save(produto), HttpStatus.CREATED);
-	}
+//	@PostMapping
+//	public ResponseEntity<Produto> save(@RequestBody @Valid Produto produto) {
+//		return new ResponseEntity<>(produtoService.save(produto), HttpStatus.CREATED);
+//	}
 
-	@PostMapping("/cadastro")
-	public ResponseEntity<String> cadastrarProduto(@RequestPart("nome") String nome,
-			@RequestParam("valorUnitario") BigDecimal valorUnitario, @RequestPart("imagem") MultipartFile imagem) {
+	@PostMapping(consumes = "multipart/form-data")
+	public ResponseEntity<String> cadastrarProduto(
+			@RequestPart("nome") String nome,
+			@RequestPart("descricao") String descricao, 
+			@RequestPart("qtdEstoque") Integer qtdEstoque,
+			@RequestPart("dataCadastro") LocalDate dataCadastro,
+			@RequestParam("valorUnitario") BigDecimal valorUnitario,
+			@RequestPart("imagem") MultipartFile imagem) {
 		try {
-			produtoService.cadastrarProduto(nome, valorUnitario, imagem);
+			produtoService.cadastrarProduto(nome, descricao, qtdEstoque, dataCadastro, valorUnitario, imagem);
 			return ResponseEntity.ok("Produto cadastrado com sucesso.");
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body("Falha ao cadastrar o produto: " + e.getMessage());
