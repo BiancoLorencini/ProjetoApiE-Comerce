@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import br.org.serratec.ecommerce.entities.Cliente;
-import br.org.serratec.ecommerce.enums.Status;
+import br.org.serratec.ecommerce.enums.StatusPedido;
 
 public class PedidoDTO {
 	private LocalDate dataPedido;
 	private LocalDate dataEnvio;
 	private LocalDate dataEntrega;
-	private Status status;
+	private StatusPedido statusPedido;
 	private BigDecimal valorTotal;
 	private Cliente cliente;
 
@@ -38,12 +38,12 @@ public class PedidoDTO {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Status getStatus() {
-		return status;
+	public StatusPedido getStatus() {
+		return statusPedido;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setStatus(StatusPedido statusPedido) {
+		this.statusPedido = statusPedido;
 	}
 
 	public BigDecimal getValorTotal() {
@@ -65,9 +65,7 @@ public class PedidoDTO {
 	@Override
 	public String toString() {
 		return "PedidoDTO [dataPedido=" + dataPedido + ", dataEnvio=" + dataEnvio + ", dataEntrega=" + dataEntrega
-				+ ", status=" + status + ", valorTotal=" + valorTotal + ", cliente=" + cliente + "]";
+				+ ", statusPedido=" + statusPedido + ", valorTotal=" + valorTotal + ", cliente=" + cliente + "]";
 	}
-
-
 
 }

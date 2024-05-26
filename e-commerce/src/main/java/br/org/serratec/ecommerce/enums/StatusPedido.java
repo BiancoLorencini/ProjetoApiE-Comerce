@@ -1,13 +1,16 @@
 package br.org.serratec.ecommerce.enums;
 
-public enum Status {
-	FINALIZADO("F", "finalizado", 1), PROCESSANDO("P", "processando", 2);
+public enum StatusPedido {
+	ABERTO("A", "aberto", 1),
+	PRONTO_PRA_ENVIO("PPE", "pronto pra envio", 2),
+	ENVIADO("ENV", "em aberto", 3),
+	ENTREGUE("ENT", "entregue", 4);
 
 	private String descricaoTextual;
 	private String sigla;
 	private int enumerado;
 
-	private Status(String descricaoTextual, String sigla, int enumerado) {
+	private StatusPedido(String descricaoTextual, String sigla, int enumerado) {
 		this.descricaoTextual = descricaoTextual;
 		this.sigla = sigla;
 		this.enumerado = enumerado;

@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import br.org.serratec.ecommerce.enums.Status;
+import br.org.serratec.ecommerce.enums.StatusPedido;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,8 +44,8 @@ public class Pedido {
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
 
-	@Column(name = "status")
-	private Status status;
+	@Column(name = "statusPedido")
+	private StatusPedido statusPedido;
 
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
@@ -97,12 +97,12 @@ public class Pedido {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Status getStatus() {
-		return status;
+	public StatusPedido getStatusPedido() {
+		return statusPedido;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setStatusPedido(StatusPedido statusPedido) {
+		this.statusPedido = statusPedido;
 	}
 
 	public BigDecimal getValorTotal() {
