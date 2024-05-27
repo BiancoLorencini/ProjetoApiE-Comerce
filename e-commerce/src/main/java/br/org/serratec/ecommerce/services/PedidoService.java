@@ -1,15 +1,14 @@
 package br.org.serratec.ecommerce.services;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.ecommerce.dtos.PedidoDTO;
 import br.org.serratec.ecommerce.dtos.RelatorioDTO;
-import br.org.serratec.ecommerce.entities.ItemPedido;
 import br.org.serratec.ecommerce.entities.Pedido;
 import br.org.serratec.ecommerce.enums.StatusPedido;
 import br.org.serratec.ecommerce.repositories.ItemPedidoRepository;
@@ -28,6 +27,12 @@ public class PedidoService {
 	
 	@Autowired
 	Pedido pedido;
+	
+	@Autowired
+	ModelMapper modelMapper;
+	
+	@Autowired
+	EmailService emailService;
 
 	public List<Pedido> findAll() {
 		return pedidoRepository.findAll();
@@ -61,10 +66,14 @@ public class PedidoService {
 
 	public Pedido update(Pedido pedido) {
 		Pedido pedidoSalvo = pedidoRepository.save(pedido);
+		RelatorioDTO relatorioDto = null;
 		
 		if (pedidoSalvo.getStatusPedido() == StatusPedido.PRONTO_PRA_ENVIO) {
 			relatorioDtoService.gerarRelatorio(pedido.getIdPedido());
 			
+		relatorioDto = modelMapper.map(pedidoSalvo, RelatorioDTO.class);
+			emailService.enviarEmail("email@email.com","Cadastro de Perfil", relatorioDto.toString());
+
 			System.out.println(relatorioDtoService.gerarRelatorio(pedido.getIdPedido()));
         }
 
