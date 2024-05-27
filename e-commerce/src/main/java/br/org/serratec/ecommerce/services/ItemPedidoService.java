@@ -31,28 +31,9 @@ public class ItemPedidoService {
 		return itemPedidoRepository.findById(id).get();
 	}
 	
-	public List<ItemPedidoDTO> findAllResumido() {
-		List<ItemPedido> itensPedido = itemPedidoRepository.findAll();
-		List<ItemPedidoDTO> itensPedidoDTO = new ArrayList<>();
-
-		for (ItemPedido itemPedido : itensPedido) {
-			
-			ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
-			
-			itemPedidoDTO.setPedido(itemPedido.getPedido());
-			itemPedidoDTO.setProduto(itemPedido.getProduto());
-			itemPedidoDTO.setQuantidade(itemPedido.getQuantidade());
-			itemPedidoDTO.setValorLiquido(itemPedido.getValorLiquido());
-
-			itensPedidoDTO.add(itemPedidoDTO);
-		}
-
-		return itensPedidoDTO;
-	}
 
 	public ItemPedido save(ItemPedido itemPedido) {
 		calcularValores(itemPedido);
-		pedidoService.calcularValorTotal(itemPedido);
 		return itemPedidoRepository.save(itemPedido);
 
 	}
@@ -75,10 +56,6 @@ public class ItemPedidoService {
 			return false;
 		}
 	}
-
-//	public long count() {
-//		return itemPedidoRepository.count();
-//	}
 
 	private void calcularValores(ItemPedido itemPedido) {
 		BigDecimal valorBruto = itemPedido.getPrecoVenda().multiply(new BigDecimal(itemPedido.getQuantidade()));

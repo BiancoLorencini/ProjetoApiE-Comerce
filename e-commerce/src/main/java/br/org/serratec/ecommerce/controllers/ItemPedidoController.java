@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.org.serratec.ecommerce.dtos.ItemPedidoDTO;
 import br.org.serratec.ecommerce.entities.ItemPedido;
 import br.org.serratec.ecommerce.services.ItemPedidoService;
 
@@ -38,11 +37,6 @@ public class ItemPedidoController {
 			return new ResponseEntity<>(itemPedido, HttpStatus.NOT_FOUND);
 		else
 			return new ResponseEntity<>(itemPedido, HttpStatus.OK);
-	}
-	
-	@GetMapping("/resumido")
-	public ResponseEntity<List<ItemPedidoDTO>> findAllResumido() {
-		return new ResponseEntity<>(itemPedidoService.findAllResumido(), HttpStatus.OK);
 	}
 	
 	@PostMapping

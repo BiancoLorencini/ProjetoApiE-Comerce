@@ -1,5 +1,6 @@
 package br.org.serratec.ecommerce.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +50,10 @@ public class RelatorioService {
 
 	    relatorio.setIdPedido(pedido.getIdPedido());
 	    relatorio.setDataPedido(pedido.getDataPedido());
-	    relatorio.setValorTotal(pedido.getValorTotal());
+	    
+	    BigDecimal valorTotal = calcularValorTotal(itens);
+	    relatorio.setValorTotal(valorTotal);
+	    pedido.setValorTotal(valorTotal);
  
 	    for (ItemPedido item : itens) {
 	        ItemPedidoDTO itemDTO = new ItemPedidoDTO();
@@ -69,5 +73,13 @@ public class RelatorioService {
 	    relatorio.setItens(itensRelatorio);
 
 	    return relatorio;
+	}
+	
+	private BigDecimal calcularValorTotal(List<ItemPedido> itensPedidos) {
+	    BigDecimal valorTotal = BigDecimal.ZERO;
+	    for (ItemPedido item : itensPedidos) {
+	        valorTotal = valorTotal.add(item.getValorLiquido());
+	    }
+	    return valorTotal;
 	}
 }

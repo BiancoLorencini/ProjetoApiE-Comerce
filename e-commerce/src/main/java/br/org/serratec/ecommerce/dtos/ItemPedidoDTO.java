@@ -2,8 +2,6 @@ package br.org.serratec.ecommerce.dtos;
 
 import java.math.BigDecimal;
 
-import br.org.serratec.ecommerce.entities.Pedido;
-import br.org.serratec.ecommerce.entities.Produto;
 
 public class ItemPedidoDTO {
 	private Integer idProduto;
