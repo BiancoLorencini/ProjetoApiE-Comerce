@@ -24,7 +24,7 @@ public class PedidoService {
 	ItemPedidoRepository itemPedidoRepository;
 	
 	@Autowired
-	RelatorioDtoService relatorioDtoService;
+	RelatorioService relatorioDtoService;
 	
 	@Autowired
 	Pedido pedido;
