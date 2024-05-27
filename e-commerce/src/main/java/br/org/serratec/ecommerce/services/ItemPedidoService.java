@@ -19,7 +19,10 @@ public class ItemPedidoService {
 
 	@Autowired
 	ItemPedido itemPedido;
-
+	
+	@Autowired
+	PedidoService pedidoService;
+	
 	public List<ItemPedido> findAll() {
 		return itemPedidoRepository.findAll();
 	}
@@ -49,6 +52,7 @@ public class ItemPedidoService {
 
 	public ItemPedido save(ItemPedido itemPedido) {
 		calcularValores(itemPedido);
+		pedidoService.calcularValorTotal(itemPedido);
 		return itemPedidoRepository.save(itemPedido);
 
 	}

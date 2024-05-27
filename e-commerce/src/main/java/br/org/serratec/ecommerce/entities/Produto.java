@@ -17,6 +17,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -45,7 +46,9 @@ public class Produto {
 	@NotNull
 	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
+	
 	@Lob
+	@Transient
 	@Column(name = "imagem")
 	private byte[] imagem;
 

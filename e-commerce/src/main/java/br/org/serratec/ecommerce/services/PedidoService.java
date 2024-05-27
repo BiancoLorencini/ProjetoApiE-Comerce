@@ -25,6 +25,9 @@ public class PedidoService {
 	
 	@Autowired
 	RelatorioDtoService relatorioDtoService;
+	
+	@Autowired
+	Pedido pedido;
 
 	public List<Pedido> findAll() {
 		return pedidoRepository.findAll();
@@ -86,15 +89,17 @@ public class PedidoService {
 		return pedidoRepository.count();
 	}
 
-	public void calcularValorTotal(Pedido pedido) {
+	public void calcularValorTotal(ItemPedido itemPedido) {
 		List<ItemPedido> itensPedidos = itemPedidoRepository.findAll();
 
 		BigDecimal valorTotal = BigDecimal.ZERO;
 		for (ItemPedido item : itensPedidos) {
 			valorTotal = valorTotal.add(item.getValorLiquido());
 		}
-		
+		if(pedido.getValorTotal() == null) {
 		pedido.setValorTotal(valorTotal);
-
+		} else {
+			pedido.setValorTotal(pedido.getValorTotal().add(valorTotal));
+		}
 	}
 }

@@ -27,8 +27,7 @@ public class RelatorioDtoService {
 	
 	@Autowired
 	ItemPedidoRepository itemPedidoRepository;
-	
-	
+		
 	
 	public List<RelatorioDTO> gerarRelatorio() {
 		
@@ -45,26 +44,27 @@ public class RelatorioDtoService {
 			relatorioDto.setValorTotal(pedido.getValorTotal());
 			
 			relatoriosDto.add(relatorioDto);
-		}
-		
-		
-		for(Produto produto : produtos) {
-			RelatorioDTO relatorioDto = new RelatorioDTO();
-			relatorioDto.setIdProduto(produto.getIdProduto());
-			relatorioDto.setNomeProduto(produto.getNome());
 			
-			relatoriosDto.add(relatorioDto);
-		}
-		
-		for(ItemPedido item : itens) {
-			RelatorioDTO relatorioDto = new RelatorioDTO();
-			relatorioDto.setPrecoVenda(item.getPrecoVenda());
-			relatorioDto.setQuantidade(item.getQuantidade());
-			relatorioDto.setValorBruto(item.getValorBruto());
-			relatorioDto.setPercentualDesconto(item.getPercentualDesconto());
-			relatorioDto.setValorLiquido(item.getValorLiquido());
+			for(Produto produto : produtos) {
+				
+				relatorioDto.setIdProduto(produto.getIdProduto());
+				relatorioDto.setNomeProduto(produto.getNome());
+				
+				relatoriosDto.add(relatorioDto);
+				
+				for(ItemPedido item : itens) {
+					
+					relatorioDto.setPrecoVenda(item.getPrecoVenda());
+					relatorioDto.setQuantidade(item.getQuantidade());
+					relatorioDto.setValorBruto(item.getValorBruto());
+					relatorioDto.setPercentualDesconto(item.getPercentualDesconto());
+					relatorioDto.setValorLiquido(item.getValorLiquido());
+					
+					relatoriosDto.add(relatorioDto);
+				}
+			}
 			
-			relatoriosDto.add(relatorioDto);
+			
 		}
 		
 			
