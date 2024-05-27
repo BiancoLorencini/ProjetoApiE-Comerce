@@ -82,4 +82,30 @@ public class RelatorioService {
 	    }
 	    return valorTotal;
 	}
+	
+	public String prepararEmail(RelatorioDTO relatorio) {
+		
+		String email = "\n==========================\n	"
+				+ "RELATÓRIO DO PEDIDO"
+				+ "\n==========================\n" 
+				+ "Código do Pedido: " + relatorio.getIdPedido()
+				+ "\nData do Pedido: " + relatorio.getDataPedido()
+				+ "\nValor Total: R$" + relatorio.getValorTotal()
+				+ "\n\nPRODUTOS \n\n";
+		
+		
+		for(ItemPedidoDTO item : relatorio.getItens() ) {
+			email += " Código do Produto: " + item.getIdProduto() + " | ";
+			email += item.getNomeProduto() + " | ";
+			email += "Quantidade: " + item.getQuantidade() + " | ";
+			email += "Preço de Venda: R$" + item.getPrecoVenda() + " | ";
+			email += "Desconto: " + item.getPercentualDesconto() + "% | ";
+			email += "Valor Bruto: R$" + item.getValorBruto() + " | ";
+			email += "Valor Líquido: R$" + item.getValorLiquido() + " | \n";
+			
+		}
+		
+		return email;
+		
+	}
 }

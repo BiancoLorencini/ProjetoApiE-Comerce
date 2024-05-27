@@ -1,12 +1,14 @@
 package br.org.serratec.ecommerce.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.org.serratec.ecommerce.dtos.ItemPedidoDTO;
 import br.org.serratec.ecommerce.dtos.PedidoDTO;
 import br.org.serratec.ecommerce.dtos.RelatorioDTO;
 import br.org.serratec.ecommerce.entities.Pedido;
@@ -23,7 +25,7 @@ public class PedidoService {
 	ItemPedidoRepository itemPedidoRepository;
 	
 	@Autowired
-	RelatorioService relatorioDtoService;
+	RelatorioService relatorioService;
 	
 	@Autowired
 	Pedido pedido;
@@ -65,17 +67,26 @@ public class PedidoService {
 	}
 
 	public Pedido update(Pedido pedido) {
-		Pedido pedidoSalvo = pedidoRepository.save(pedido);
-		RelatorioDTO relatorioDto = null;
+		Pedido pedidoAntigo = pedidoRepository.findById(pedido.getIdPedido()).get();
 		
-		if (pedidoSalvo.getStatusPedido() == StatusPedido.PRONTO_PRA_ENVIO) {
-			relatorioDtoService.gerarRelatorio(pedido.getIdPedido());
-			
-		relatorioDto = modelMapper.map(pedidoSalvo, RelatorioDTO.class);
-			emailService.enviarEmail("email@email.com","Cadastro de Perfil", relatorioDto.toString());
+		pedidoAntigo.setStatusPedido(pedido.getStatusPedido());
+		pedidoAntigo.setDataEntrega(pedido.getDataEntrega());
+		pedidoAntigo.setDataEnvio(pedido.getDataEnvio());
+		pedidoAntigo.setDataPedido(pedido.getDataPedido());
+		
+		Pedido pedidoSalvo = pedidoRepository.save(pedidoAntigo);
+		
+		RelatorioDTO relatorioDto = null;
 
-			System.out.println(relatorioDtoService.gerarRelatorio(pedido.getIdPedido()));
-        }
+		if (pedidoSalvo.getStatusPedido() == StatusPedido.PRONTO_PRA_ENVIO) {
+			relatorioService.gerarRelatorio(pedido.getIdPedido());
+
+			relatorioDto = modelMapper.map(pedidoSalvo, RelatorioDTO.class);
+			emailService.enviarEmail("email@email.com", "Cadastro de Perfil",
+					relatorioService.prepararEmail(relatorioDto));
+
+			System.out.println(relatorioService.gerarRelatorio(pedido.getIdPedido()));
+		}
 
 		return pedidoRepository.save(pedido);
 	}

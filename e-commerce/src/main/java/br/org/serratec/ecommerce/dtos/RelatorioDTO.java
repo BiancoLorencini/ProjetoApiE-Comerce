@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import br.org.serratec.ecommerce.entities.ItemPedido;
+
 public class RelatorioDTO {
 	private Integer idPedido;
 	private LocalDate dataPedido;
@@ -36,12 +38,23 @@ public class RelatorioDTO {
 	}
 	@Override
 	public String toString() {
-		return "RelatorioDTO [idPedido=" + idPedido + ", dataPedido=" + dataPedido + ", valorTotal=" + valorTotal
-				+ ", itens=" + itens + "]";
+		return  String.format(
+				"""
+				===================
+				RELATÓRIO DO PEDIDO
+				===================
+				
+				Código do Pedido: %s
+				Data do Pedido: %s
+				Valor Total: R$%s
+				
+				PRODUTOS:
+				%s
+				
+				"""
+				
+				, idPedido, dataPedido, valorTotal, itens.toString() );
 	}
-
-	
-	
 	
 
 }
