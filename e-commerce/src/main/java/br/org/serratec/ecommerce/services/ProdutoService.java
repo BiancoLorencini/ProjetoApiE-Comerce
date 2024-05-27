@@ -2,9 +2,14 @@ package br.org.serratec.ecommerce.services;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,7 +83,21 @@ public class ProdutoService {
 
 
 		if (imagem != null && !imagem.isEmpty()) {
-			produto.setImagem(imagem.getBytes());
+			Blob blb;
+			try {
+				blb = new SerialBlob(imagem.getBytes());
+				produto.setImagem(blb);
+			} catch (SerialException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 
 		produtoRepository.save(produto);

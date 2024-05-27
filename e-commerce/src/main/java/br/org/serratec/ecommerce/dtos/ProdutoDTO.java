@@ -1,9 +1,7 @@
 package br.org.serratec.ecommerce.dtos;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-
-import org.springframework.web.multipart.MultipartFile;
+import java.sql.Blob;
 
 import br.org.serratec.ecommerce.entities.Categoria;
 
@@ -12,7 +10,7 @@ public class ProdutoDTO {
 
 	private String nome;
 	private BigDecimal valorUnitario;
-	private byte[] imagem;
+	private Blob imagem;
 	private Categoria categoria;
 	public String getNome() {
 		return nome;
@@ -26,10 +24,10 @@ public class ProdutoDTO {
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
-	public byte[] getImagem() {
+	public Blob getImagem() {
 		return imagem;
 	}
-	public void setImagem(byte[] imagem) {
+	public void setImagem(Blob imagem) {
 		this.imagem = imagem;
 	}
 	public Categoria getCategoria() {

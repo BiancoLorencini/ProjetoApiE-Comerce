@@ -1,6 +1,7 @@
 package br.org.serratec.ecommerce.entities;
 
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,7 +18,6 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -48,9 +48,8 @@ public class Produto {
 	private BigDecimal valorUnitario;
 	
 	@Lob
-	@Transient
 	@Column(name = "imagem")
-	private byte[] imagem;
+	private Blob imagem;
 
 	// ---Relação---
 	@ManyToOne
@@ -109,11 +108,11 @@ public class Produto {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public byte[] getImagem() {
+	public Blob getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(byte[] imagem) {
+	public void setImagem(Blob imagem) {
 		this.imagem = imagem;
 	}
 
