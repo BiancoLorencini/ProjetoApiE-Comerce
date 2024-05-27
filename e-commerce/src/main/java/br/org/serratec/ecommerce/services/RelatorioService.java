@@ -2,10 +2,12 @@ package br.org.serratec.ecommerce.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.org.serratec.ecommerce.dtos.ItemPedidoDTO;
 import br.org.serratec.ecommerce.dtos.RelatorioDTO;
 import br.org.serratec.ecommerce.entities.ItemPedido;
 import br.org.serratec.ecommerce.entities.Pedido;
@@ -29,36 +31,43 @@ public class RelatorioService {
 	ItemPedidoRepository itemPedidoRepository;
 		
 	
-	public List<RelatorioDTO> gerarRelatorio() {
+	
+	
+	
+	public RelatorioDTO gerarRelatorio(Integer idPedido) {
+	    Optional<Pedido> pedidoOptional = pedidoRepository.findById(idPedido);
 
-	    List<Pedido> pedidos = pedidoRepository.findAll();
-	    List<ItemPedido> itens = itemPedidoRepository.findAll();
-	    
-	    List<RelatorioDTO> relatoriosDto = new ArrayList<>();
-
-	    for (Pedido pedido : pedidos) {
-	        for (ItemPedido item : itens) {
-	            if (item.getPedido().getIdPedido().equals(pedido.getIdPedido())) {
-	                RelatorioDTO relatorioDto = new RelatorioDTO();
-	                relatorioDto.setIdPedido(pedido.getIdPedido());
-	                relatorioDto.setDataPedido(pedido.getDataPedido());
-	                relatorioDto.setValorTotal(pedido.getValorTotal());
-
-	                Produto produto = item.getProduto();
-	                relatorioDto.setIdProduto(produto.getIdProduto());
-	                relatorioDto.setNomeProduto(produto.getNome());
-
-	                relatorioDto.setPrecoVenda(item.getPrecoVenda());
-	                relatorioDto.setQuantidade(item.getQuantidade());
-	                relatorioDto.setValorBruto(item.getValorBruto());
-	                relatorioDto.setPercentualDesconto(item.getPercentualDesconto());
-	                relatorioDto.setValorLiquido(item.getValorLiquido());
-
-	                relatoriosDto.add(relatorioDto);
-	            }
-	        }
+	    if (pedidoOptional.isEmpty()) {
+	        return null;
 	    }
 
-	    return relatoriosDto;
+	    Pedido pedido = pedidoOptional.get();
+	    
+	    List<ItemPedido> itens = itemPedidoRepository.findByPedidoIdPedido(pedido.getIdPedido());
+	    List<ItemPedidoDTO> itensRelatorio = new ArrayList<>();
+	    RelatorioDTO relatorio = new RelatorioDTO();
+
+	    relatorio.setIdPedido(pedido.getIdPedido());
+	    relatorio.setDataPedido(pedido.getDataPedido());
+	    relatorio.setValorTotal(pedido.getValorTotal());
+ 
+	    for (ItemPedido item : itens) {
+	        ItemPedidoDTO itemDTO = new ItemPedidoDTO();
+	        Produto produto = item.getProduto();
+	        
+	        itemDTO.setIdProduto(produto.getIdProduto());
+	        itemDTO.setNomeProduto(produto.getNome());
+	        itemDTO.setPrecoVenda(item.getPrecoVenda());
+	        itemDTO.setQuantidade(item.getQuantidade());
+	        itemDTO.setValorBruto(item.getValorBruto());
+	        itemDTO.setPercentualDesconto(item.getPercentualDesconto());
+	        itemDTO.setValorLiquido(item.getValorLiquido());
+	        
+	        itensRelatorio.add(itemDTO);
+	    }
+
+	    relatorio.setItens(itensRelatorio);
+
+	    return relatorio;
 	}
 }

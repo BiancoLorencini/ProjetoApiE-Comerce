@@ -63,9 +63,9 @@ public class PedidoService {
 		Pedido pedidoSalvo = pedidoRepository.save(pedido);
 		
 		if (pedidoSalvo.getStatusPedido() == StatusPedido.PRONTO_PRA_ENVIO) {
-			relatorioDtoService.gerarRelatorio();
+			relatorioDtoService.gerarRelatorio(pedido.getIdPedido());
 			
-			System.out.println(relatorioDtoService.gerarRelatorio());
+			System.out.println(relatorioDtoService.gerarRelatorio(pedido.getIdPedido()));
         }
 
 		return pedidoRepository.save(pedido);
