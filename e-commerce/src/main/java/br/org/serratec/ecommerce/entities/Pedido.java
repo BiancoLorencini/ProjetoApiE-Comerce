@@ -44,7 +44,8 @@ public class Pedido {
 	@Future
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
-
+	
+	@NotNull(message = "O Status do Pedido não pode estar vazio")
 	@Column(name = "statusPedido")
 	private StatusPedido statusPedido;
 
