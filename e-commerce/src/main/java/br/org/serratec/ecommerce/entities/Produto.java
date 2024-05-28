@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
@@ -47,7 +48,7 @@ public class Produto {
 	@NotNull
 	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
-	
+	@JsonIgnore
 	@JdbcTypeCode(Types.BINARY)
     @Column(name = "imagem")
 	private byte[] imagem;

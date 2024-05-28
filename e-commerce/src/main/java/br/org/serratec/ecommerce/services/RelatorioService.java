@@ -91,7 +91,7 @@ public class RelatorioService {
 				+ "Código do Pedido: " + relatorio.getIdPedido()
 				+ "\nData do Pedido: " + relatorio.getDataPedido()
 				+ "\nValor Total: R$" + relatorio.getValorTotal()
-				+ "\n\nPRODUTOS \n\n";
+				+ "\n\n\t PRODUTOS \n\n";
 		
 		
 		for(ItemPedidoDTO item : relatorio.getItens() ) {
