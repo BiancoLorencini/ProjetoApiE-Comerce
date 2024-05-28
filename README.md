@@ -16,4 +16,4 @@ integrantes do grupo:
 
 - [Maria Eduarda Goes](https://www.linkedin.com/in/maria-eduarda-góes-pelaggi-818871227/)
 
-- [Nicolle Mello](https://www.linkedin.com/in/nimellodev)
+- [Nicolle Mello](https://www.linkedin.com/in/nimello)
