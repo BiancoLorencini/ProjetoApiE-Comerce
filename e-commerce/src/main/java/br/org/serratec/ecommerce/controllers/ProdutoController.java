@@ -51,10 +51,7 @@ public class ProdutoController {
 		}
 	}
 
-//	@PostMapping
-//	public ResponseEntity<Produto> save(@RequestBody @Valid Produto produto) {
-//		return new ResponseEntity<>(produtoService.save(produto), HttpStatus.CREATED);
-//	}
+
 
 	@PostMapping(consumes = "multipart/form-data")
 	public ResponseEntity<String> cadastrarProduto(
@@ -62,30 +59,17 @@ public class ProdutoController {
 			@RequestPart("descricao") String descricao, 
 			@RequestPart("qtdEstoque") Integer qtdEstoque,
 			@RequestPart("dataCadastro") LocalDate dataCadastro,
+			@RequestPart("categoria") Integer categoria,
 			@RequestParam("valorUnitario") BigDecimal valorUnitario,
 			@RequestPart("imagem") MultipartFile imagem) {
 		try {
-			produtoService.cadastrarProduto(nome, descricao, qtdEstoque, dataCadastro, valorUnitario, imagem);
+			produtoService.cadastrarProduto(nome, descricao, qtdEstoque, dataCadastro, categoria, valorUnitario, imagem);
 			return ResponseEntity.ok("Produto cadastrado com sucesso.");
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body("Falha ao cadastrar o produto: " + e.getMessage());
 		}
 	}
 
-//	@PostMapping("/cadastro")
-//	public ResponseEntity<String> cadastrarProduto(@RequestParam("nome") String nome,
-//			@RequestParam("imagem") MultipartFile imagem) {
-//		try {
-//			ProdutoDTO produtoDTO = new ProdutoDTO();
-//			produtoDTO.setNome(nome);
-//			produtoDTO.setImagem(imagem);
-//
-//			produtoService.cadastrarProduto(produtoDTO);
-//			return ResponseEntity.ok("Produto cadastrado com sucesso.");
-//		} catch (Exception e) {
-//			return ResponseEntity.status(500).body("Falha ao cadastrar o produto: " + e.getMessage());
-//		}
-//	}
 
 	@PutMapping
 	public ResponseEntity<Produto> update(@RequestBody Produto produto) {

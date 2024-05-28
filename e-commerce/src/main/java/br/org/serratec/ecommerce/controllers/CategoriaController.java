@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.org.serratec.ecommerce.dtos.CategoriaDTO;
 import br.org.serratec.ecommerce.entities.Categoria;
 import br.org.serratec.ecommerce.services.CategoriaService;
 

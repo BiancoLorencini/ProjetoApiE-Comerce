@@ -1,14 +1,12 @@
 package br.org.serratec.ecommerce.services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.org.serratec.ecommerce.dtos.ItemPedidoDTO;
 import br.org.serratec.ecommerce.dtos.PedidoDTO;
 import br.org.serratec.ecommerce.dtos.RelatorioDTO;
 import br.org.serratec.ecommerce.entities.Pedido;

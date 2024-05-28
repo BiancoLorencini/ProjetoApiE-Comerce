@@ -1,11 +1,8 @@
 package br.org.serratec.ecommerce.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import br.org.serratec.ecommerce.entities.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.ecommerce.entities.Categoria;

@@ -10,7 +10,7 @@ public class ProdutoDTO {
 
 	private String nome;
 	private BigDecimal valorUnitario;
-	private Blob imagem;
+	private byte[] imagem;
 	private Categoria categoria;
 	public String getNome() {
 		return nome;
@@ -24,10 +24,10 @@ public class ProdutoDTO {
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
-	public Blob getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
-	public void setImagem(Blob imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 	public Categoria getCategoria() {

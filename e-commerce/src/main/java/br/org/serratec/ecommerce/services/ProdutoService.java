@@ -2,20 +2,16 @@ package br.org.serratec.ecommerce.services;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.org.serratec.ecommerce.dtos.ProdutoDTO;
+import br.org.serratec.ecommerce.entities.Categoria;
 import br.org.serratec.ecommerce.entities.Produto;
 import br.org.serratec.ecommerce.repositories.ProdutoRepository;
 
@@ -71,32 +67,22 @@ public class ProdutoService {
 		}
 	}
 
-	public void cadastrarProduto(String nome, String descricao, Integer qtdEstoque, LocalDate dataCadastro, BigDecimal valorUnitario,
+	public void cadastrarProduto(String nome, String descricao, Integer qtdEstoque, LocalDate dataCadastro, Integer categoria, BigDecimal valorUnitario,
 			MultipartFile imagem) throws IOException {
 		Produto produto = new Produto();
+		Categoria idCategoria = new Categoria();
+		idCategoria.setIdCategoria(categoria);
 		produto.setNome(nome);
 		produto.setDescricao(descricao);
 		produto.setQtdEstoque(qtdEstoque);
 		produto.setDataCadastro(dataCadastro);
+		produto.setCategoria(idCategoria);
 		produto.setValorUnitario(valorUnitario);
 	
 
 
 		if (imagem != null && !imagem.isEmpty()) {
-			Blob blb;
-			try {
-				blb = new SerialBlob(imagem.getBytes());
-				produto.setImagem(blb);
-			} catch (SerialException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			produto.setImagem(imagem.getBytes());
 			
 		}
 

@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import br.org.serratec.ecommerce.entities.ItemPedido;
-
 public class RelatorioDTO {
 	private Integer idPedido;
 	private LocalDate dataPedido;
